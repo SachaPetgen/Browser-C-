@@ -1,0 +1,20 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WebBrowserUI">
+
+
+
+
+    <Style TargetType="{x:Type Button}" x:Key="ToolBarIconButtons">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Height" Value="32px" />
+        <Setter Property="Width" Value="32px" />
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="HistoryButtons">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Width" Value="100px" />
+    </Style>
+    
+</ResourceDictionary>

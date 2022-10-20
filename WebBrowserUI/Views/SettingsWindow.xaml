@@ -1,0 +1,41 @@
+﻿<Window x:Class="WebBrowserUI.Views.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WebBrowserUI.Views"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        Height="300" MaxHeight="300" MinHeight="300" Width="250" MinWidth="250" MaxWidth="250"
+        Title="Settings">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="10" Grid.Row="1">
+            <CheckBox x:Name="darkModeCheckBox" Content="Dark mode"/>
+        </StackPanel>
+
+        <DockPanel  Margin="10"  Grid.Row="2">
+            <Label DockPanel.Dock="Top" Content="Default url"/>
+            <TextBox DockPanel.Dock="Bottom" x:Name="defaultUrlTxt" VerticalAlignment="Stretch" VerticalContentAlignment="Center"/>
+        </DockPanel>
+
+
+        <Grid Margin="0, 20" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Margin="5, 0" Grid.Column="0"  x:Name="ok" Content="OK" Click="ok_Click" />
+            <Button Margin="5, 0" Grid.Column="1"  x:Name="cancel" Content="Cancel" Click="cancel_Click" />
+
+        </Grid>
+
+    </Grid>
+</Window>

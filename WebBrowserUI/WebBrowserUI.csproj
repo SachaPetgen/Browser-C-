@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Platforms>AnyCU;x64;x86</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\fav_dark.png" />
+    <None Remove="Images\fav_dark.png.png" />
+    <None Remove="Images\history_dark.png" />
+    <None Remove="Images\home_dark.png" />
+    <None Remove="Images\left-arrow_dark.png" />
+    <None Remove="Images\menu_dark.png" />
+    <None Remove="Images\refresh_dark.png" />
+    <None Remove="Images\right-arrow_dark.png" />
+    <None Remove="Images\search_dark.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Styles\Buttons.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CefSharp.Wpf.NETCore" Version="102.0.90" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj" />
+    <ProjectReference Include="..\RegistryManager\RegistryManager.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\fav_dark.png" />
+    <Resource Include="Images\history_dark.png" />
+    <Resource Include="Images\home_dark.png" />
+    <Resource Include="Images\left-arrow_dark.png" />
+    <Resource Include="Images\menu_dark.png" />
+    <Resource Include="Images\refresh_dark.png" />
+    <Resource Include="Images\right-arrow_dark.png" />
+    <Resource Include="Images\search_dark.png" />
+    <Resource Include="Styles\Buttons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+  </ItemGroup>
+
+</Project>
