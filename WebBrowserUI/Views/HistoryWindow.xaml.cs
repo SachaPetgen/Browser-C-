@@ -15,17 +15,15 @@ namespace WebBrowserUI
     /// </summary>
     public partial class HistoryWindow : Window
     {
-
-        public static HistoryViewModel ViewModel { get; set; }
         
+        private HistoryViewModel _historyViewModel;
 
-        public HistoryWindow()
+        public HistoryWindow(HistoryViewModel historyViewModel)
         {
             InitializeComponent();
 
-            ViewModel = new HistoryViewModel();
-
-            DataContext = ViewModel;
+            this._historyViewModel = historyViewModel;
+            DataContext = historyViewModel;
 
         }
 
@@ -51,13 +49,13 @@ namespace WebBrowserUI
 
             if(historyLView.SelectedItems.Count > 0)
             {
-                ViewModel.SelectedHistory = historyLView.SelectedItems.Cast<HistoryWebPage>().ToList();
+                _historyViewModel.SelectedHistory = historyLView.SelectedItems.Cast<HistoryWebPage>().ToList();
             }
         }
 
         private void deleteHistoryButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.RemoveSelectedHistory();
+            _historyViewModel.RemoveSelectedHistory();
         }
 
         protected void OnClosing(object sender, CancelEventArgs e)
@@ -75,13 +73,13 @@ namespace WebBrowserUI
 
             if (saveFileDialog.FileName != "")
             {
-                ViewModel.SaveHistoryToXML(saveFileDialog.FileName);
+                _historyViewModel.SaveHistoryToXML(saveFileDialog.FileName);
             }
         }
 
         private void clearHistoryButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.ClearHistory();
+            _historyViewModel.ClearHistory();
         }
 
         private void loadHistoryButton_Click(object sender, RoutedEventArgs e)
@@ -93,7 +91,7 @@ namespace WebBrowserUI
 
             if (openFileDialog.FileName != "")
             {
-                ViewModel.LoadHistoryFromXML(openFileDialog.FileName);
+                _historyViewModel.LoadHistoryFromXML(openFileDialog.FileName);
             }
         }
     }

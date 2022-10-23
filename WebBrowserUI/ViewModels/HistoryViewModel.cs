@@ -11,10 +11,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Models;
+using WebBrowserUI.ViewModels;
 
 namespace WebBrowserUI
 {
-    public class HistoryViewModel : INotifyPropertyChanged
+    public class HistoryViewModel : ViewModelBase, INotifyPropertyChanged
     {
 
         public ObservableCollection<HistoryWebPage> HistoryList { get; set; }
@@ -103,13 +104,6 @@ namespace WebBrowserUI
                 }
             }
         }
-
-        private void PropertyChangedEventHandler([CallerMemberName] string propertyname = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
     }
 }

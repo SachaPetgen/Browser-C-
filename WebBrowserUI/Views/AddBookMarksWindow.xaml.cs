@@ -17,14 +17,14 @@ namespace WebBrowserUI
     /// <summary>
     /// Logique d'interaction pour Window1.xaml
     /// </summary>
-    public partial class AddBookMarksWindow : Window
+    public partial class AddBookmarksWindow : Window
     {
 
         public delegate void BookMarkEvent(object sender, BookMarkAddEventArgs e);
 
         public event BookMarkEvent BookMarkAddEvent;
 
-        public AddBookMarksWindow()
+        public AddBookmarksWindow()
         {
             InitializeComponent();
         }

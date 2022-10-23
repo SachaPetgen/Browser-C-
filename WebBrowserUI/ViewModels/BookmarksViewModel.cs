@@ -7,15 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using WebBrowserUI.ViewModels;
 
 namespace WebBrowserUI
 {
-    public class BookMarkViewModel
+    public class BookmarksViewModel
     {
 
         public ObservableCollection<BookMarkWebPage> BookMarksList { get; set; }
 
-        public BookMarkViewModel()
+        public BookmarksViewModel()
         {
             BookMarksList = new ObservableCollection<BookMarkWebPage>();
         }

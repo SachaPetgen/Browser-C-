@@ -1,10 +1,7 @@
-﻿<Window x:Class="WebBrowserUI.WebBrowserWindow"
+﻿<Window x:Class="WebBrowserUI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:cefSharp="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
-        xmlns:local="clr-namespace:WebBrowserUI"
-        xmlns:models="clr-namespace:Models;assembly=Models"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         Title="Web Browser" 
         Height="{x:Static SystemParameters.PrimaryScreenHeight}"  
         Width="{x:Static SystemParameters.PrimaryScreenWidth}"
@@ -12,11 +9,11 @@
         WindowState="Maximized">
 
     <Window.Resources>
-        <ContextMenu x:Key="menu">
+        <ContextMenu x:Key="menu" PlacementTarget="{Binding ElementName=openMenuButton}">
             <MenuItem Header="Settings"/>
             <Separator />
-            <MenuItem Header="Save bookmarks"  Command=""/>
-            <MenuItem Header="Load bookmarks"  Command=""/>
+            <MenuItem Header="Save bookmarks"  Command="{Binding SaveBookmarksCommand}"/>
+            <MenuItem Header="Load bookmarks"  Command="{Binding LoadBookmarksCommand}"/>
         </ContextMenu>
     </Window.Resources>
 
@@ -37,45 +34,45 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Horizontal" Grid.Column="0">
-                    <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="Go Back" Command="" >
+                    <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="Go Back" Command="{Binding PreviousCommand}" >
                         <Image Source="/WebBrowserUI;component/Images/left-arrow_dark.png" />
                     </Button>
 
-                    <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="Go Forward" Command="">
+                    <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="Go Forward" Command="{Binding ForwardCommand}">
                         <Image Source="/WebBrowserUI;component/Images/right-arrow_dark.png"/>
 
                     </Button>
 
-                    <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="Refresh" Command="" >
+                    <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="Refresh" Command="{Binding RefreshCommand}" >
                         <Image Source="/WebBrowserUI;component/Images/refresh_dark.png" />
 
                     </Button>
 
-                    <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="Home Page" Command="">
+                    <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="Home Page" Command="{Binding HomeCommand}">
                         <Image Source="/WebBrowserUI;component/Images/home_dark.png" />
                     </Button>
-                    <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="New Tab" Command="">
+                    <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="New Tab" Command="{Binding NewTabCommand}">
                         <Label FontSize="16"  FontWeight="Bold" Content="+" VerticalAlignment="Bottom"/>
                     </Button>
             </StackPanel>
 
-                <TextBox Name="searchTextBox"  FontSize="20px" Text="{" Grid.Column="1" KeyDown="textBox_EnterKeyDown"/>
+                <TextBox Name="searchTextBox"  FontSize="20px" Text="{Binding ActualBrowser.CurrentUrl}" Grid.Column="1" KeyDown="textBox_EnterKeyDown"/>
 
                 <StackPanel Orientation="Horizontal" Grid.Column="2">
-                    <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="Search" Command="">
+                    <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="Search" Command="{Binding RefreshCommand}">
                         <Image Source="/WebBrowserUI;component/Images/search_dark.png" />
                     </Button>
-                    <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="Fav" Command="">
+                    <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="Fav" Command="{Binding OpenAddBookmarksCommand}">
                         <Image Source="/WebBrowserUI;component/Images/fav_dark.png" />
                     </Button>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Grid.Column="3" Grid.Row="0" >
-                    <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="Menu" Command="">
+                <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="Menu" Command="{Binding OpenMenuCommand}" CommandParameter="{Binding ElementName=menu}" Name="openMenuButton">
                         <Image Source="/WebBrowserUI;component/Images/menu_dark.png" />
                     </Button>
 
-                    <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="History" Command="">
+                    <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="History" Command="{Binding OpenHistoryCommand}">
                         <Image Source="/WebBrowserUI;component/Images/history_dark.png" />
                     </Button>
                 </StackPanel>
@@ -89,15 +86,15 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                            <Button Content="{Binding Name}" Margin="0,0,5,5" Command=""/>
-                            </DataTemplate>
+                            <Button Content="{Binding Name}" Margin="0,0,5,5" Command="" CommandParameter="{Binding Url}"/>
+                        </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </StackPanel>
 
             </Grid>
 
-        <TabControl x:Name="tabControl" ItemsSource="{Binding Browsers}" SelectionChanged="tabControl_SelectionChanged">
+        <TabControl x:Name="tabControl" ItemsSource="{Binding Browsers}" SelectedItem="{Binding ActualBrowser, Mode=TwoWay}">
             <TabControl.ItemContainerStyle>
                 <Style TargetType="TabItem">
                     <Setter Property="Header" Value="{Binding CurrentTitle}"/>

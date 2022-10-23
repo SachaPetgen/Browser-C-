@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WebBrowserUI.Events;
 
-namespace WebBrowserUI.Views
+namespace WebBrowserUI
 {
     /// <summary>
     /// Logique d'interaction pour SettingsWindow.xaml
