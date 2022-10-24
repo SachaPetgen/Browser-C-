@@ -16,7 +16,7 @@ namespace WebBrowserUI.Commands
 
         public override void Execute(object parameter)
         {
-            _mainViewModel.ActualBrowser.CurrentUrl = parameter.ToString();
+            _mainViewModel.Load(parameter as string);
         }
     }
 }

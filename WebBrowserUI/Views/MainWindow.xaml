@@ -5,6 +5,8 @@
         Title="Web Browser" 
         Height="{x:Static SystemParameters.PrimaryScreenHeight}"  
         Width="{x:Static SystemParameters.PrimaryScreenWidth}"
+        MinWidth="800px"
+        MinHeight="600px"
         Closing="OnClosing"
         WindowState="Maximized">
 
@@ -19,13 +21,12 @@
 
     <DockPanel>
 
-            <Grid DockPanel.Dock="Top">
+         <Grid DockPanel.Dock="Top">
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                    <ColumnDefinition Width="9*"></ColumnDefinition>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
@@ -56,43 +57,45 @@
                     </Button>
             </StackPanel>
 
-                <TextBox Name="searchTextBox"  FontSize="20px" Text="{Binding ActualBrowser.CurrentUrl}" Grid.Column="1" KeyDown="textBox_EnterKeyDown"/>
+            <Grid Grid.Column="1" Margin="100,0,200,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="Auto"/>
 
-                <StackPanel Orientation="Horizontal" Grid.Column="2">
-                    <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="Search" Command="{Binding RefreshCommand}">
-                        <Image Source="/WebBrowserUI;component/Images/search_dark.png" />
-                    </Button>
-                    <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="Fav" Command="{Binding OpenAddBookmarksCommand}">
-                        <Image Source="/WebBrowserUI;component/Images/fav_dark.png" />
-                    </Button>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Grid.Column="3" Grid.Row="0" >
-                <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="Menu" Command="{Binding OpenMenuCommand}" CommandParameter="{Binding ElementName=menu}" Name="openMenuButton">
-                        <Image Source="/WebBrowserUI;component/Images/menu_dark.png" />
-                    </Button>
-
-                    <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="History" Command="{Binding OpenHistoryCommand}">
-                        <Image Source="/WebBrowserUI;component/Images/history_dark.png" />
-                    </Button>
-                </StackPanel>
-
-                <StackPanel Grid.Row="1" Grid.ColumnSpan="4" x:Name="BookMarks" Orientation="Horizontal"  >
-                    <ItemsControl ItemsSource="{Binding BookMarksList}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                            <Button Content="{Binding Name}" Margin="0,0,5,5" Command="" CommandParameter="{Binding Url}"/>
-                        </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </StackPanel>
-
+                </Grid.ColumnDefinitions>
+                <TextBox KeyDown="textBox_EnterKeyDown" Grid.Column="0" Name="searchTextBox"  FontSize="18px" Text="{Binding ActualBrowser.CurrentUrl}" TextAlignment="Left" HorizontalAlignment="Stretch"/>
+                <Button Grid.Column="1" Style="{StaticResource ToolBarIconButtons}" ToolTip="Add Bookmarks" Command="{Binding OpenAddBookmarksCommand}">
+                    <Image Source="/WebBrowserUI;component/Images/fav_dark.png" />
+                </Button>
             </Grid>
+                
+            <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Grid.Column="2" Grid.Row="0" >
+                <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="Menu" Command="{Binding OpenMenuCommand}" CommandParameter="{Binding ElementName=menu}" Name="openMenuButton">
+                    <Image Source="/WebBrowserUI;component/Images/menu_dark.png" />
+                </Button>
+
+                <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="History" Command="{Binding OpenHistoryCommand}">
+                    <Image Source="/WebBrowserUI;component/Images/history_dark.png" />
+                </Button>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Grid.ColumnSpan="4" x:Name="BookMarks" Orientation="Horizontal"  >
+                <ItemsControl ItemsSource="{Binding BookMarksList}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource BookmarkButton}" Content="{Binding Name}" Margin="0,0,5,5" Command="{Binding RelativeSource={RelativeSource FindAncestor, 
+    AncestorType={x:Type Window}}, Path=DataContext.GoToBookmarksCommand}" CommandParameter="{Binding Url}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+             
+        </Grid>
 
         <TabControl x:Name="tabControl" ItemsSource="{Binding Browsers}" SelectedItem="{Binding ActualBrowser, Mode=TwoWay}">
             <TabControl.ItemContainerStyle>
@@ -102,8 +105,5 @@
                 </Style>
             </TabControl.ItemContainerStyle>
         </TabControl>
-
-
-
     </DockPanel>
 </Window>

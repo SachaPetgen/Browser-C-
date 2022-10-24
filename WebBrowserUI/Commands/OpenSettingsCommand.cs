@@ -1,5 +1,6 @@
 ﻿using CefSharp;
 using Models;
+using RegistryManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,12 @@ namespace WebBrowserUI.Commands
         
         public void OnSettingsSetEvent(object sender, SettingsEventArgs e)
         {
+            if (e.defaultUrl != "")
+            {
+                RegistryUtils.setDefaultUrl(e.defaultUrl);
+            }
 
+            RegistryUtils.setDarkMode(e.isDarkMode);
         }
     }
 }

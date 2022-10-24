@@ -41,6 +41,7 @@ namespace WebBrowserUI
         public ICommand PreviousCommand { get; set; }
         public ICommand RefreshCommand { get; set; }
         public ICommand SaveBookmarksCommand { get; set; }
+        public ICommand GoToBookmarksCommand { get; set; }
 
         private HistoryViewModel _historyViewModel;
         public BookmarksViewModel BookMarkViewModel;
@@ -67,7 +68,7 @@ namespace WebBrowserUI
             BookMarkViewModel = new BookmarksViewModel();
             _historyViewModel = new HistoryViewModel();
 
-            OpenAddBookmarksCommand = new OpenAddBookmarksCommand();
+            OpenAddBookmarksCommand = new OpenAddBookmarksCommand(BookMarkViewModel, this);
             ClearHistoryCommand = new ClearHistoryCommand(_historyViewModel);
             ForwardCommand = new ForwardCommand(this);
             HomeCommand = new HomeCommand(this);
@@ -79,6 +80,7 @@ namespace WebBrowserUI
             PreviousCommand = new PreviousCommand(this);  
             RefreshCommand = new RefreshCommand(this);
             SaveBookmarksCommand = new SaveBookmarksCommand(BookMarkViewModel);
+            GoToBookmarksCommand = new GoToBookmarksCommand(this);
     }
 
         public void NewBrowser()
@@ -119,22 +121,6 @@ namespace WebBrowserUI
                     _historyViewModel.AddHistory(historyWebPage);
                 }));
             }
-        }
-
-        public void OnBookMarkAddEvent(object sender, BookMarkAddEventArgs e)
-        {
-            BookMarkWebPage bookMarkWebPage = new BookMarkWebPage(ActualBrowser.CurrentUrl, ActualBrowser.CurrentTitle, e.Name, e.TagList);
-            BookMarkViewModel.AddBookMark(bookMarkWebPage);
-        }
-
-        public void OnSettingsSetEvent(object sender, SettingsEventArgs e)
-        {
-            if (e.defaultUrl != "")
-            {
-                RegistryUtils.setDefaultUrl(e.defaultUrl);
-            }
-
-            RegistryUtils.setDarkMode(e.isDarkMode);
         }
 
         public void Load(string url)
