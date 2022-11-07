@@ -1,7 +1,9 @@
 ﻿
 using Models;
 using RegistryManager;
+using System;
 using System.ComponentModel;
+using System.Reflection.Metadata;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -31,11 +33,7 @@ namespace WebBrowserUI
             tabControl.SelectedItem = _viewModel.ActualBrowser;
         }
 
-        /// <summary>
-        /// COMMAND HANDLERS
-        /// </summary>
-
-        private void textBox_EnterKeyDown(object sender, KeyEventArgs e)
+        private void TextBox_EnterKeyDown(object sender, KeyEventArgs e)
         {
 
             if (e.Key == Key.Return)
@@ -45,20 +43,17 @@ namespace WebBrowserUI
 
         }
 
-
-
-        /// <summary>
-        /// EVENTS
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-
         protected void OnClosing(object sender, CancelEventArgs e)
         {
             e.Cancel = true;
             Application.Current.Shutdown();
         }
 
-
+        private void OpenMenuButton_Click(object sender, EventArgs e)
+        {
+            ContextMenu cm = this.FindResource("menu") as ContextMenu;
+            cm.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            cm.IsOpen = true;
+        }
     }
 }

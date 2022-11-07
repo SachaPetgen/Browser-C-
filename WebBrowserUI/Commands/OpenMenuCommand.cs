@@ -12,13 +12,11 @@ namespace WebBrowserUI.Commands
 {
     public class OpenMenuCommand : CommandBase
     {
-
-
         public override void Execute(object parameter)
         {
-            //ContextMenu cm = parameter as ContextMenu;
-            //cm.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
-            //cm.IsOpen = true;
+            ContextMenu cm = parameter as ContextMenu;
+            cm.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            cm.IsOpen = true;
         }
     }
 }

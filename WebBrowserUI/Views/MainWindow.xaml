@@ -11,7 +11,7 @@
         WindowState="Maximized">
 
     <Window.Resources>
-        <ContextMenu x:Key="menu" PlacementTarget="{Binding ElementName=openMenuButton}">
+        <ContextMenu x:Key="menu" PlacementTarget="{x:Reference OpenMenuButton}">
             <MenuItem Header="Settings"/>
             <Separator />
             <MenuItem Header="Save bookmarks"  Command="{Binding SaveBookmarksCommand}"/>
@@ -63,14 +63,14 @@
                     <ColumnDefinition Width="Auto"/>
 
                 </Grid.ColumnDefinitions>
-                <TextBox KeyDown="textBox_EnterKeyDown" Grid.Column="0" Name="searchTextBox"  FontSize="18px" Text="{Binding ActualBrowser.CurrentUrl}" TextAlignment="Left" HorizontalAlignment="Stretch"/>
+                <TextBox KeyDown="TextBox_EnterKeyDown" Grid.Column="0" Name="searchTextBox"  FontSize="18px" Text="{Binding ActualBrowser.CurrentUrl}" TextAlignment="Left" HorizontalAlignment="Stretch"/>
                 <Button Grid.Column="1" Style="{StaticResource ToolBarIconButtons}" ToolTip="Add Bookmarks" Command="{Binding OpenAddBookmarksCommand}">
                     <Image Source="/WebBrowserUI;component/Images/fav_dark.png" />
                 </Button>
             </Grid>
                 
             <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Grid.Column="2" Grid.Row="0" >
-                <Button Style="{StaticResource ToolBarIconButtons}" ToolTip="Menu" Command="{Binding OpenMenuCommand}" CommandParameter="{Binding ElementName=menu}" Name="openMenuButton">
+                <Button Name="OpenMenuButton" Style="{StaticResource ToolBarIconButtons}" ToolTip="Menu" Click="OpenMenuButton_Click">
                     <Image Source="/WebBrowserUI;component/Images/menu_dark.png" />
                 </Button>
 
